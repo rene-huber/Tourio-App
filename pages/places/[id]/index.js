@@ -37,7 +37,7 @@ export default function DetailsPage() {
 
   console.log(  place?.comments, "comments", place, "place",)
 
-  const comment = place?.comments || []
+  // const comment = place?.comments || []
 
   if (!isReady || isLoading || error) return <h2>Loading...</h2>;
 
@@ -94,7 +94,7 @@ export default function DetailsPage() {
           Delete
         </StyledButton>
       </ButtonContainer>
-      <Comments locationName={place.name} comments={comment}  />
+      <Comments locationName={place.name} comments={comments}  />
     </>
   );
 }

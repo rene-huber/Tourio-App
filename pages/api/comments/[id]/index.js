@@ -1,5 +1,5 @@
-import dbConnect from '../../connect.js';
-import Comment from '../../models/Comment.js';
+import dbConnect from "../../../../db/connect";
+import Comment from "../../../../db/models/Comment";
 
 
 export default async function handler(req, res) {

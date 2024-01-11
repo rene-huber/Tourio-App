@@ -32,7 +32,7 @@ export default function Comments({ locationName, comments }) {
     data.placeID = id;
 
     try {
-      const res = await fetch('/api/comments', {
+      const res = await fetch(`/api/comments/${id}`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',

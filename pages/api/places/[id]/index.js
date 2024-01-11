@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     
     const comments = await Comment.find({ placeID: id })
 
-    return res.status(200).json({ place: place});
+    return res.status(200).json({ place: place, comments: comments});
   }
   if (req.method === `PATCH`) {
     const place = await Place.findByIdAndUpdate(id, {
