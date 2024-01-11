@@ -65,10 +65,6 @@ export default function Form({ onSubmit, formName, defaultData }) {
   async function handleSubmit(event) {
     event.preventDefault();
     const imageUrl = await uploadImage()
-    // if (!imageUrl) {
-    //   console.error("Failed to upload image.");
-    //   return
-    // }
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
