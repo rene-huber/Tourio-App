@@ -28,6 +28,7 @@ export default function EditPage() {
       }
 
       mutate()
+      router.push(`/places/${id}`)
       
         } catch (error) {
             console.log(error)

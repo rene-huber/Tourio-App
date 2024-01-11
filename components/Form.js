@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { StyledButton } from "./StyledButton.js";
+import { useState } from "react";
 
 export const FormContainer = styled.form`
   display: grid;
@@ -25,13 +26,60 @@ export const Label = styled.label`
 `;
 
 export default function Form({ onSubmit, formName, defaultData }) {
-  function handleSubmit(event) {
+  const [photo, setPhoto] = useState("");
+  const [loading, setIsLoading] = useState();
+  const [error, setError] = useState();
+
+  console.log(photo);
+
+  const CLOUD_NAME = "huberlin";
+  const UPLOAD_PRESET = "blog13";
+
+  const uploadImage = async () => {
+    if (!photo) return;
+    setIsLoading(true);
+    setError("");
+    const formData = new FormData();
+    formData.append("file", photo);
+    formData.append("upload_preset", UPLOAD_PRESET);
+    try {
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const data = await res.json();
+      setIsLoading(false);
+      setPhoto("")
+      return data.secure_url;
+    } catch (error) {
+      console.error(error);
+      setError("Error upload image");
+      setIsLoading(false);
+      return null;
+    }
+  };
+
+  async function handleSubmit(event) {
     event.preventDefault();
+    const imageUrl = await uploadImage()
+    // if (!imageUrl) {
+    //   console.error("Failed to upload image.");
+    //   return
+    // }
+
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+
+    console.log(data)
+    if(imageUrl) {
+      data.image = imageUrl
+    }
     onSubmit(data);
   }
-console.log(defaultData, "defaultData");
+  console.log(defaultData, "defaultData");
   return (
     <FormContainer aria-labelledby={formName} onSubmit={handleSubmit}>
       <Label htmlFor="name">Name</Label>
@@ -47,6 +95,12 @@ console.log(defaultData, "defaultData");
         name="image"
         type="text"
         defaultValue={defaultData?.image}
+      />
+      <label htmlFor="image">Upload</label>
+      <input
+        id="image"
+        type="file"
+        onChange={(event) => event.target ? setPhoto(event.target.files[0]) : null}
       />
       <Label htmlFor="location">Location</Label>
       <Input
