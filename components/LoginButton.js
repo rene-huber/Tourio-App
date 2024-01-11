@@ -28,7 +28,7 @@ export default function LoginButton() {
   return (
     <>
       {/* Not signed in <br /> */}
-      <FixedLink onClick={() => signIn("github")}>Sign in</FixedLink>
+      <FixedLink onClick={() => signIn("google")}>Sign in</FixedLink>
     </>
   );
 }
