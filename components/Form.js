@@ -32,8 +32,8 @@ export default function Form({ onSubmit, formName, defaultData }) {
 
   console.log(photo);
 
-  const CLOUD_NAME = "huberlin";
-  const UPLOAD_PRESET = "blog13";
+  const CLOUD_NAME = "  - - - -   ";// from cloudinay 
+  const UPLOAD_PRESET = "  - - - -   ";// from cloudinay 
 
   const uploadImage = async () => {
     if (!photo) return;
